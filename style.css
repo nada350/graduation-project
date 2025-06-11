@@ -543,12 +543,12 @@ flex-wrap: nowrap;
 .delete-icon {
     background: none;
     border: none;
-    color: #ff4d4d; /* لون أحمر */
+    color: #ff4d4d;
     font-size: 1.0em;
     cursor: pointer;
     margin-left: 10px;
 }
 
 .delete-icon:hover {
-    color: #ff1a1a; /* لون أحمر داكن عند التمرير */
+    color: #ff1a1a; 
 }
