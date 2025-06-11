@@ -9,10 +9,10 @@ import tensorflow as tf
 from tensorflow.keras.models import load_model
 from tensorflow.keras.saving import register_keras_serializable
 import tensorflow.keras.backend as K
-from datetime import datetime  # لإضافة الوقت
+from datetime import datetime  
 
 
-# دالة F1 المخصصة
+
 @register_keras_serializable()
 def f1_score(y_true, y_pred):
     y_true = K.cast(y_true, 'float32')
@@ -23,14 +23,12 @@ def f1_score(y_true, y_pred):
 
     return 2 * (precision * recall) / (precision + recall + K.epsilon())
 
-# تحميل الموديل
 
-# تحميل البيانات من CSV باستخدام pandas
   
-# إعداد Flask
+
 app = Flask(__name__)
 CORS(app)
-# تحميل البيانات من CSV باستخدام pandas
+
 model = load_model('C:/Users/LENOVO/Desktop/vs/fraud_model_checkpoint.keras', custom_objects={'f1_score': f1_score})
 
 df = pd.read_csv("train_data_preprocessed.csv")
@@ -38,7 +36,7 @@ df = pd.read_csv("train_data_preprocessed.csv")
 @app.route('/')
 def home():
     return jsonify({"message": "Flask API is running!"})
-# تحميل البيانات من CSV باستخدام pandas
+
 @app.route('/process_payment', methods=['POST'])
 def process_payment():
     try:
@@ -50,8 +48,7 @@ def process_payment():
 
         
 
-        # البحث عن المستخدم في البيانات
-        # تحويل name_orig حسب نوع العمود
+      
         if df["nameOrig"].dtype == 'float64':
             name_orig = float(name_orig)
         elif df["nameOrig"].dtype == 'int64':
@@ -59,14 +56,14 @@ def process_payment():
         else:
             name_orig = str(name_orig)
 
-        # البحث عن الصف
+       
         row = df[df["nameOrig"] == name_orig]
        
 
         if row.empty:
             return jsonify({"error": "User not found in dataset"}), 404
 
-        # تجهيز البيانات للنموذج
+      
         features = np.array([[float(row["step"]),
                               float(row["type"]),
                               float(row["amount"]),
@@ -77,7 +74,7 @@ def process_payment():
                               float(row["oldbalanceDest"]),
                               float(row["newbalanceDest"])]])
         
-        # توقع الاحتيال
+      
         prediction = model.predict(features)
         is_fraud = int(prediction[0][0] > 0.5)
         history_entry = {
@@ -94,7 +91,7 @@ def process_payment():
             "isFraud": is_fraud
         }
 
-        # حفظ في JSON
+    
         history_path = "payment_history.json"
         if os.path.exists(history_path):
             with open(history_path, "r") as f:
