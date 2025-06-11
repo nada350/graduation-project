@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+        .payment-form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        .payment-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .payment-form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .payment-form button {
+            width: 100%;
+            padding: 10px;
+            background-color: rgb(243, 168, 7);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .payment-form button:hover {
+            background-color: rgb(240, 197, 6);
+        }
+        #card-errors {
+            color: red;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-form">
+        <h2>Payment Details</h2>
+        <div id="order-summary">
+            <h3>Order Summary</h3>
+            <ul id="order-items"></ul>
+            <p>Total: $<span id="order-total">0</span></p>
+        </div>
+
+        <form id="paymentForm">
+            <label for="nameOrig">Your Account Number:</label>
+            <input type="text" id="nameOrig" required>
+
+            <div id="card-errors" role="alert"></div>
+            <button type="submit">Pay Now</button>
+        </form>
+    </div>
+
+    <script>
+        // عرض تفاصيل الطلب
+        window.addEventListener('load', () => {
+            const cart = JSON.parse(localStorage.getItem('cart'));
+            const total = localStorage.getItem('total');
+
+            if (cart && total) {
+                const orderItems = document.getElementById('order-items');
+                const orderTotal = document.getElementById('order-total');
+                orderItems.innerHTML = '';
+                cart.forEach(item => {
+                    const li = document.createElement('li');
+                    li.textContent = `${item.name} - $${item.price}`;
+                    orderItems.appendChild(li);
+                });
+                orderTotal.textContent = total;
+            } else {
+                alert('No items in cart!');
+                window.location.href = 'index.html';
+            }
+        });
+
+        // إرسال النموذج
+        document.getElementById('paymentForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    console.log("Form submitted!");
+
+    const nameOrig = parseFloat(document.getElementById('nameOrig').value);
+
+    const cart = JSON.parse(localStorage.getItem('cart'));
+    const total = parseFloat(localStorage.getItem('total')) || 0;
+
+    if (!cart || cart.length === 0) {
+        alert('Cart is empty!');
+        return;
+    }
+
+    
+
+const data = {
+    
+    nameOrig: nameOrig,
+    
+
+    
+   
+};
+
+    console.log("Sending nameOrig  to backend:", data);
+
+    fetch('http://127.0.0.1:5000/process_payment', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(response => {
+        alert(response.message);
+    })
+    .catch(error => {
+        alert("Error occurred: " + error);
+    });
+});
+
+    </script>
+</body>
+</html>

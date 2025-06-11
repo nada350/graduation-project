@@ -1,0 +1,41 @@
+[
+    {
+        "timestamp": "2025-04-22 16:33:44",
+        "step": 1.0,
+        "type": 1.0,
+        "nameOrig": 5828262.0,
+        "nameDest": 391696.0,
+        "amount": 181.0,
+        "oldbalanceOrg": 181.0,
+        "newbalanceOrig": 0.0,
+        "oldbalanceDest": 21182.0,
+        "newbalanceDest": 0.0,
+        "isFraud": 1
+    },
+    {
+        "timestamp": "2025-04-28 14:54:29",
+        "step": 718.0,
+        "type": 0.0,
+        "nameOrig": 5562887.0,
+        "nameDest": 226723.0,
+        "amount": 96239.74,
+        "oldbalanceOrg": 101281.0,
+        "newbalanceOrig": 197520.74,
+        "oldbalanceDest": 151109.37,
+        "newbalanceDest": 54869.63,
+        "isFraud": 0
+    },
+    {
+        "timestamp": "2025-04-28 14:54:59",
+        "step": 719.0,
+        "type": 4.0,
+        "nameOrig": 4526339.0,
+        "nameDest": 75159.0,
+        "amount": 479926.98,
+        "oldbalanceOrg": 479926.98,
+        "newbalanceOrig": 0.0,
+        "oldbalanceDest": 0.0,
+        "newbalanceDest": 0.0,
+        "isFraud": 1
+    }
+]
