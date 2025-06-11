@@ -74,7 +74,7 @@
     </div>
 
     <script>
-        // عرض تفاصيل الطلب
+       
         window.addEventListener('load', () => {
             const cart = JSON.parse(localStorage.getItem('cart'));
             const total = localStorage.getItem('total');
@@ -95,7 +95,7 @@
             }
         });
 
-        // إرسال النموذج
+       
         document.getElementById('paymentForm').addEventListener('submit', async (event) => {
     event.preventDefault();
     console.log("Form submitted!");
