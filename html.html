@@ -214,7 +214,7 @@ Connect with us at<div class="social-media">
 </div>
 
 </footer>
-<!-- عربة التسوق -->
+
 <div id="cart" class="cart">
     <h2>Shopping Cart</h2>
     <ul id="cart-items"></ul>
@@ -242,29 +242,29 @@ menu.style.visibility = "visible";
         const cartItems = document.getElementById('cart-items');
         const cartTotal = document.getElementById('cart-total');
 
-        // تفريغ العربة
+        
         cartItems.innerHTML = '';
 
-        // إضافة العناصر إلى العربة
+        
         cart.forEach((item, index) => {
             const li = document.createElement('li');
             li.textContent = `${item.name} (x${item.quantity}) - $${(item.price * item.quantity).toFixed(2)}`;
 
-            // زر الحذف
+            
             const deleteButton = document.createElement('button');
             deleteButton.innerHTML = '<ion-icon name="trash"></ion-icon>';
             deleteButton.classList.add('delete-icon');
             
-             // زر الحذف
+             
             deleteButton.addEventListener('click', () => {
               if (item.quantity > 1) {
-        // تقليص الكمية بمقدار واحد فقط
+        
         item.quantity -= 1;
-        total -= item.price; // تحديث السعر
+        total -= item.price; 
        } else {
-        // إذا كانت الكمية واحدة فقط، نزيل العنصر بالكامل
-        total -= item.price * item.quantity; // تحديث السعر
-        cart.splice(index, 1); // إزالة المنتج بالكامل من العربة
+        
+        total -= item.price * item.quantity; 
+        cart.splice(index, 1); 
         }
     updateCart();
     saveCart();
@@ -274,7 +274,7 @@ menu.style.visibility = "visible";
             cartItems.appendChild(li);
         });
 
-        // تحديث الإجمالي
+        
         cartTotal.textContent = total.toFixed(2);
     }
 
@@ -288,14 +288,14 @@ menu.style.visibility = "visible";
             const name = button.getAttribute('data-name');
             const price = parseFloat(button.getAttribute('data-price'));
 
-            // البحث عن المنتج في العربة
+            
             const existingItem = cart.find(item => item.name === name);
 
             if (existingItem) {
-                // زيادة الكمية فقط إذا كان المنتج موجودًا
+               
                 existingItem.quantity += 1;
             } else {
-                // إضافة المنتج الجديد للعربة
+               
                 cart.push({ name, price, quantity: 1 });
             }
 
